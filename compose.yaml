@@ -1,0 +1,30 @@
+name: dockertut
+services:
+  nodeapp:
+    image: dockertutapp
+    container_name: sample
+    environment:
+      - PORT=4000
+      
+
+    ports:
+      - 4000:4000
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    container_name: dockertutdb   
+
+    ports:
+      - 27070:27017
+      
+  authservice:
+    image: auth
+    ports:
+      - 5000:5000
+    depends_on:
+      - nodeapp
+    environment:
+      - PORT=5000 
+
